@@ -1,26 +1,76 @@
-import Player from './Player';
+import Player from './Player.js';
+import PlayerController from './PlayerController.js';
 
 const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
 let player: Player;
+let playerController: PlayerController;
+
 function init() {
   if (canvas) {
     player = new Player((canvas.width - 60) / 2);
+    playerController = new PlayerController(player);
     window.requestAnimationFrame(draw);
   }
 }
 
 function draw() {
   if (ctx !== null) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(
       player.playerImg,
       player.horizontalPos,
       canvas.height - player.height - 10
     );
+    if (
+      playerController.rightPressed &&
+      player.horizontalPos < canvas.width - player.width - 2
+    ) {
+      playerController.moveRight();
+    }
+
+    if (playerController.leftPressed && player.horizontalPos > 2) {
+      playerController.moveLeft();
+    }
+    requestAnimationFrame(draw);
   }
 }
 init();
+
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+
+function keyDownHandler(e: KeyboardEvent) {
+  if (e.code === 'ArrowRight') {
+    playerController.rightPressed = true;
+    console.log(playerController.rightPressed);
+  }
+  if (e.code === 'ArrowLeft') {
+    playerController.leftPressed = true;
+    console.log(playerController.leftPressed);
+  }
+  if (e.code === 'Space') {
+    // playerController.spacePressed = true;
+    // console.log(playerController.spacePressed);
+    // shoot();
+  }
+}
+
+function keyUpHandler(e: KeyboardEvent) {
+  if (e.code === 'ArrowRight') {
+    playerController.rightPressed = false;
+    console.log(playerController.rightPressed);
+  }
+  if (e.code === 'ArrowLeft') {
+    playerController.leftPressed = false;
+    console.log(playerController.leftPressed);
+  }
+  if (e.code === 'Space') {
+    // playerController.spacePressed = false;
+    // console.log(playerController.spacePressed);
+  }
+}
 
 // const enemy = new Image();
 // const enemyWidth = 75;
@@ -28,9 +78,6 @@ init();
 // const enemyPadding = 20;
 // const enemyOffsetTop = 10;
 // const enemyOffsetLeft = 20;
-// let rightPressed = false;
-// let leftPressed = false;
-// let spacePressed = false;
 // TODO: add score
 // TODO: add lives
 
@@ -42,34 +89,6 @@ init();
 //   enemies[i] = [];
 //   for (let j = 0; j < enemyColumnCount; j++) {
 //     enemies[i][j] = { x: 0, y: 0, status: 1 };
-//   }
-// }
-
-// document.addEventListener('keydown', keyDownHandler, false);
-// document.addEventListener('keyup', keyUpHandler, false);
-
-// function keyDownHandler(e) {
-//   if (e.code === 'ArrowRight') {
-//     rightPressed = true;
-//   }
-//   if (e.code === 'ArrowLeft') {
-//     leftPressed = true;
-//   }
-//   if (e.code === 'Space') {
-//     spacePressed = true;
-//     shoot();
-//   }
-// }
-
-// function keyUpHandler(e) {
-//   if (e.code === 'ArrowRight') {
-//     rightPressed = false;
-//   }
-//   if (e.code === 'ArrowLeft') {
-//     leftPressed = false;
-//   }
-//   if (e.code === 'Space') {
-//     spacePressed = false;
 //   }
 // }
 
@@ -120,7 +139,6 @@ init();
 // }
 
 // function draw() {
-//   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 // ctx.drawImage(
 //   player.playerImg.src,
@@ -159,15 +177,6 @@ init();
 // collisionDetection(bullets[i].x, bullets[i].y);
 // }
 
-// if (rightPressed && playerX < canvas.width - playerWidth - 2) {
-//   playerX += dx;
-// }
-
-// if (leftPressed && playerX > 2) {
-//   playerX -= dx;
-// }
-
-//   requestAnimationFrame(draw);
 // }
 
 // init();
