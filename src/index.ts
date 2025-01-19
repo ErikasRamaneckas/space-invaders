@@ -1,20 +1,24 @@
-import Player from './Player.js';
+import Player from './Player';
 
-const canvas = document.querySelector('#canvas');
+const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
-let player;
+let player: Player;
 function init() {
-  player = new Player();
-  player.playerX = (canvas.width - player.width) / 2;
-  window.requestAnimationFrame(draw);
+  if (canvas) {
+    player = new Player((canvas.width - 60) / 2);
+    window.requestAnimationFrame(draw);
+  }
 }
+
 function draw() {
-  ctx.drawImage(
-    player.playerImg,
-    player.playerX,
-    canvas.height - player.height - 10
-  );
+  if (ctx !== null) {
+    ctx.drawImage(
+      player.playerImg,
+      player.horizontalPos,
+      canvas.height - player.height - 10
+    );
+  }
 }
 init();
 
