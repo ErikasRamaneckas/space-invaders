@@ -1,16 +1,29 @@
 import Player from './Player.js';
 import PlayerController from './PlayerController.js';
+import InputHandler from './InputHandler.js';
 
 const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
 let player: Player;
 let playerController: PlayerController;
+let inputHandler: InputHandler;
 
 function init() {
   if (canvas) {
     player = new Player((canvas.width - 60) / 2);
     playerController = new PlayerController(player);
+    inputHandler = new InputHandler(playerController);
+    document.addEventListener(
+      'keydown',
+      (e) => inputHandler.keyDownHandler(e),
+      false
+    );
+    document.addEventListener(
+      'keyup',
+      (e) => inputHandler.keyUpHandler(e),
+      false
+    );
     window.requestAnimationFrame(draw);
   }
 }
@@ -33,44 +46,18 @@ function draw() {
     if (playerController.leftPressed && player.horizontalPos > 2) {
       playerController.moveLeft();
     }
+    for (let i = 0; i < player.bullets.length; i++) {
+      player.bullets[i].y -= 2;
+      ctx.fillStyle = 'red';
+      ctx.fillRect(player.bullets[i].x, player.bullets[i].y, 10, 10);
+      if (player.bullets[i].y < 0) {
+        player.bullets.splice(i, 1);
+      }
+    }
     requestAnimationFrame(draw);
   }
 }
 init();
-
-document.addEventListener('keydown', keyDownHandler, false);
-document.addEventListener('keyup', keyUpHandler, false);
-
-function keyDownHandler(e: KeyboardEvent) {
-  if (e.code === 'ArrowRight') {
-    playerController.rightPressed = true;
-    console.log(playerController.rightPressed);
-  }
-  if (e.code === 'ArrowLeft') {
-    playerController.leftPressed = true;
-    console.log(playerController.leftPressed);
-  }
-  if (e.code === 'Space') {
-    // playerController.spacePressed = true;
-    // console.log(playerController.spacePressed);
-    // shoot();
-  }
-}
-
-function keyUpHandler(e: KeyboardEvent) {
-  if (e.code === 'ArrowRight') {
-    playerController.rightPressed = false;
-    console.log(playerController.rightPressed);
-  }
-  if (e.code === 'ArrowLeft') {
-    playerController.leftPressed = false;
-    console.log(playerController.leftPressed);
-  }
-  if (e.code === 'Space') {
-    // playerController.spacePressed = false;
-    // console.log(playerController.spacePressed);
-  }
-}
 
 // const enemy = new Image();
 // const enemyWidth = 75;
@@ -90,34 +77,6 @@ function keyUpHandler(e: KeyboardEvent) {
 //   for (let j = 0; j < enemyColumnCount; j++) {
 //     enemies[i][j] = { x: 0, y: 0, status: 1 };
 //   }
-// }
-
-// const bullets = [];
-
-// function shoot() {
-//   bullets.push({
-//     x: playerX + playerWidth / 2 - 5,
-//     y: canvas.height - playerHeight - 10,
-//     status: 1,
-//   });
-// }
-
-// function drawBullets() {
-//   for (let i = 0; i < bullets.length; i++) {}
-// for (const bullet of bullets) {
-//   ctx.fillStyle = 'red';
-//   ctx.fillRect(x, y, 10, 10);
-//   if (y < 0) {
-//     bullets.splice(bullets.indexOf(bullet), 1);
-//     y = canvas.height;
-//   }
-// }
-// }
-
-// function init() {
-// player = new Player((canvas.width - 60) / 2);
-// enemy.src = 'images/green.png';
-//   window.requestAnimationFrame(draw);
 // }
 
 // function collisionDetection(x, y) {
@@ -165,18 +124,5 @@ function keyUpHandler(e: KeyboardEvent) {
 //     }
 //   }
 // }
-// for (let i = 0; i < bullets.length; i++) {
-//   bullets[i].y -= 2;
-//   if (bullets[i].status === 1) {
-//     ctx.fillStyle = 'red';
-//     ctx.fillRect(bullets[i].x, bullets[i].y, 10, 10);
-//   }
-//   if (bullets[i].y < 0) {
-//     bullets.splice(i, 1);
-//   }
-// collisionDetection(bullets[i].x, bullets[i].y);
-// }
 
 // }
-
-// init();
