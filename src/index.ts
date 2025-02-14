@@ -32,19 +32,16 @@ function init() {
 function draw() {
   if (ctx !== null) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(
-      player.playerImg,
-      player.horizontalPos,
-      canvas.height - player.height - 10
-    );
+
+    player.draw(ctx);
     if (
       playerController.rightPressed &&
-      player.horizontalPos < canvas.width - player.width - 2
+      player.x < canvas.width - player.width - 2
     ) {
       playerController.moveRight();
     }
 
-    if (playerController.leftPressed && player.horizontalPos > 2) {
+    if (playerController.leftPressed && player.x > 2) {
       playerController.moveLeft();
     }
 
@@ -83,11 +80,12 @@ function draw() {
         const enemyY =
           i * (enemies[i][j].height + enemies[i][j].padding) +
           enemyOffsetTop;
-        enemies[i][j].x = enemyX;
+        enemies[i][j].x += enemies[i][j].speed;
         enemies[i][j].y = enemyY;
         ctx.drawImage(enemies[i][j].enemyImg, enemyX, enemyY);
       }
     }
+
     requestAnimationFrame(draw);
   }
 }

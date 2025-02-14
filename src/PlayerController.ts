@@ -16,13 +16,13 @@ export default class PlayerController {
 
   moveRight() {
     if (this.rightPressed) {
-      this.player.horizontalPos += this.player.dx;
+      this.player.x += this.player.speed;
     }
   }
 
   moveLeft() {
     if (this.leftPressed) {
-      this.player.horizontalPos -= this.player.dx;
+      this.player.x -= this.player.speed;
     }
   }
 
@@ -32,7 +32,7 @@ export default class PlayerController {
       Date.now() - this.player.lastShot > 500
     ) {
       const newBullet = new Bullet(
-        this.player.horizontalPos + this.player.width / 2 - 5,
+        this.player.x + this.player.width / 2 - 5,
         320 - this.player.height,
         5
       );

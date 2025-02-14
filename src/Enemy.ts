@@ -1,6 +1,7 @@
 export default class Enemy {
   x: number;
   y: number;
+  speed: number;
   enemyImg: HTMLImageElement;
   width: number;
   height: number;
@@ -9,6 +10,7 @@ export default class Enemy {
   constructor() {
     this.x = 0;
     this.y = 0;
+    this.speed = 1;
     this.enemyImg = new Image();
     this.enemyImg.src = 'public/images/green.png';
     this.width = 75;
