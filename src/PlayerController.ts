@@ -14,14 +14,14 @@ export default class PlayerController {
     this.spacePressed = false;
   }
 
-  moveRight() {
-    if (this.rightPressed) {
+  move(canvasWidth: number) {
+    if (
+      this.rightPressed &&
+      this.player.x < canvasWidth - this.player.width - 2
+    ) {
       this.player.x += this.player.speed;
     }
-  }
-
-  moveLeft() {
-    if (this.leftPressed) {
+    if (this.leftPressed && this.player.x > 2) {
       this.player.x -= this.player.speed;
     }
   }

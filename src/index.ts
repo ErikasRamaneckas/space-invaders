@@ -34,20 +34,9 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     player.draw(ctx);
-    if (
-      playerController.rightPressed &&
-      player.x < canvas.width - player.width - 2
-    ) {
-      playerController.moveRight();
-    }
 
-    if (playerController.leftPressed && player.x > 2) {
-      playerController.moveLeft();
-    }
-
-    if (playerController.spacePressed) {
-      playerController.shoot();
-    }
+    playerController.move(canvas.width);
+    playerController.shoot();
 
     for (let i = 0; i < player.bullets.length; i++) {
       player.bullets[i].y -= 2;
