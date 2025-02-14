@@ -31,4 +31,14 @@ export default class Player {
       this.height
     );
   }
+
+  drawBullets(ctx: CanvasRenderingContext2D) {
+    for (let i = 0; i < this.bullets.length; i++) {
+      this.bullets[i].y -= 2;
+      this.bullets[i].draw(ctx);
+      if (this.bullets[i].y < 0) {
+        this.bullets.splice(i, 1);
+      }
+    }
+  }
 }

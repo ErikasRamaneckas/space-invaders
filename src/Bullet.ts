@@ -8,4 +8,9 @@ export default class Bullet {
     this.y = y;
     this.speed = speed;
   }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.fillStyle = 'red';
+    ctx.fillRect(this.x, this.y, 10, 10);
+  }
 }

@@ -38,14 +38,8 @@ function draw() {
     playerController.move(canvas.width);
     playerController.shoot();
 
-    for (let i = 0; i < player.bullets.length; i++) {
-      player.bullets[i].y -= 2;
-      ctx.fillStyle = 'red';
-      ctx.fillRect(player.bullets[i].x, player.bullets[i].y, 10, 10);
-      if (player.bullets[i].y < 0) {
-        player.bullets.splice(i, 1);
-      }
-    }
+    player.drawBullets(ctx);
+
     const enemyOffsetTop = 10;
     const enemyOffsetLeft = 20;
 
