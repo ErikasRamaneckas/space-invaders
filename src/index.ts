@@ -38,41 +38,13 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     player.draw(ctx);
-
     playerController.move(canvas.width);
     playerController.shoot();
-
     player.drawBullets(ctx);
 
-    // const enemyOffsetTop = 10;
-    // const enemyOffsetLeft = 20;
-
-    // const enemyRowCount = 3;
-    // const enemyColumnCount = 5;
-
-    // const enemies: Enemy[][] = [];
-    // for (let i = 0; i < enemyRowCount; i++) {
-    //   enemies[i] = [];
-    //   for (let j = 0; j < enemyColumnCount; j++) {
-    //     enemies[i][j] = new Enemy();
-    //   }
-    // }
-    // console.log(enemies);
-
-    // for (let i = 0; i < enemyRowCount; i++) {
-    //   for (let j = 0; j < enemyColumnCount; j++) {
-    //     const enemyX =
-    //       j * (enemies[i][j].width + enemies[i][j].padding) +
-    //       enemyOffsetLeft;
-    //     const enemyY =
-    //       i * (enemies[i][j].height + enemies[i][j].padding) +
-    //       enemyOffsetTop;
-    //     enemies[i][j].x += enemies[i][j].speed;
-    //     enemies[i][j].y = enemyY;
-    //     ctx.drawImage(enemies[i][j].enemyImg, enemyX, enemyY);
-    //   }
-    // }
+    enemyController.update();
     enemyController.draw(ctx);
+
     requestAnimationFrame(draw);
   }
 }

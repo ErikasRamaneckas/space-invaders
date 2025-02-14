@@ -5,41 +5,38 @@ export default class EnemyController {
   enemyOffsetLeft: number;
   enemyRowCount: number;
   enemyColumnCount: number;
-  enemies: Enemy[][];
+  // enemies: Enemy[][];
+  enemies: Enemy[];
 
   constructor() {
     this.enemyOffsetTop = 10;
     this.enemyOffsetLeft = 20;
     this.enemyRowCount = 3;
     this.enemyColumnCount = 5;
-    this.enemies = [];
+    this.enemies = this.createEnemies();
   }
 
   createEnemies() {
+    let aliens = [];
+    let y = 20;
     for (let i = 0; i < this.enemyRowCount; i++) {
-      this.enemies[i] = [];
-      for (let j = 0; j < this.enemyColumnCount; j++) {
-        this.enemies[i][j] = new Enemy();
+      for (let x = 25; x < 480 - 75; x += 90) {
+        aliens.push(new Enemy(x, y));
       }
+      y += 20;
     }
-    console.log(this.enemies);
+    return aliens;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    for (let i = 0; i < this.enemyRowCount; i++) {
-      for (let j = 0; j < this.enemyColumnCount; j++) {
-        const enemyX =
-          j *
-            (this.enemies[i][j].width + this.enemies[i][j].padding) +
-          this.enemyOffsetLeft;
-        const enemyY =
-          i *
-            (this.enemies[i][j].height + this.enemies[i][j].padding) +
-          this.enemyOffsetTop;
-        this.enemies[i][j].x += this.enemies[i][j].speed;
-        this.enemies[i][j].y = enemyY;
-        ctx.drawImage(this.enemies[i][j].enemyImg, enemyX, enemyY);
-      }
+    for (let alien of this.enemies) {
+      alien.draw(ctx);
+    }
+  }
+
+  update() {
+    for (let alien of this.enemies) {
+      alien.x += alien.speed;
     }
   }
 }

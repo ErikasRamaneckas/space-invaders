@@ -7,14 +7,24 @@ export default class Enemy {
   height: number;
   padding: number;
 
-  constructor() {
-    this.x = 0;
-    this.y = 0;
-    this.speed = 1;
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+    this.speed = 0.25;
     this.enemyImg = new Image();
     this.enemyImg.src = 'public/images/green.png';
-    this.width = 75;
-    this.height = 20;
+    this.width = 40;
+    this.height = 32;
     this.padding = 20;
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.drawImage(
+      this.enemyImg,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
   }
 }
