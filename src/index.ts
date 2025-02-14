@@ -46,6 +46,11 @@ function draw() {
     if (playerController.leftPressed && player.horizontalPos > 2) {
       playerController.moveLeft();
     }
+
+    if (playerController.spacePressed) {
+      playerController.shoot();
+    }
+
     for (let i = 0; i < player.bullets.length; i++) {
       player.bullets[i].y -= 2;
       ctx.fillStyle = 'red';

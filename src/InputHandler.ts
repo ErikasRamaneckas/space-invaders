@@ -16,7 +16,8 @@ export default class InputHandler {
     }
     if (e.code === 'Space') {
       this.playerController.spacePressed = true;
-      this.playerController.shoot();
+      console.log(this.playerController.spacePressed);
+      // this.playerController.shoot();
     }
   }
 
