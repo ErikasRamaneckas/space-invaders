@@ -27,14 +27,17 @@ export default class PlayerController {
   }
 
   shoot() {
-    if (this.spacePressed) {
-      this.player.bullets.push(
-        new Bullet(
-          this.player.horizontalPos + this.player.width / 2 - 5,
-          320 - this.player.height,
-          5
-        )
+    if (
+      this.spacePressed &&
+      Date.now() - this.player.lastShot > 500
+    ) {
+      const newBullet = new Bullet(
+        this.player.horizontalPos + this.player.width / 2 - 5,
+        320 - this.player.height,
+        5
       );
+      this.player.bullets.push(newBullet);
+      this.player.lastShot = Date.now();
     }
   }
 }
