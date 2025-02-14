@@ -1,6 +1,7 @@
 import Player from './Player.js';
 import PlayerController from './PlayerController.js';
 import InputHandler from './InputHandler.js';
+import Enemy from './Enemy.js';
 
 const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
@@ -59,30 +60,38 @@ function draw() {
         player.bullets.splice(i, 1);
       }
     }
+    const enemyOffsetTop = 10;
+    const enemyOffsetLeft = 20;
+
+    const enemyRowCount = 3;
+    const enemyColumnCount = 5;
+
+    const enemies: Enemy[][] = [];
+    for (let i = 0; i < enemyRowCount; i++) {
+      enemies[i] = [];
+      for (let j = 0; j < enemyColumnCount; j++) {
+        enemies[i][j] = new Enemy();
+      }
+    }
+    console.log(enemies);
+
+    for (let i = 0; i < enemyRowCount; i++) {
+      for (let j = 0; j < enemyColumnCount; j++) {
+        const enemyX =
+          j * (enemies[i][j].width + enemies[i][j].padding) +
+          enemyOffsetLeft;
+        const enemyY =
+          i * (enemies[i][j].height + enemies[i][j].padding) +
+          enemyOffsetTop;
+        enemies[i][j].x = enemyX;
+        enemies[i][j].y = enemyY;
+        ctx.drawImage(enemies[i][j].enemyImg, enemyX, enemyY);
+      }
+    }
     requestAnimationFrame(draw);
   }
 }
 init();
-
-// const enemy = new Image();
-// const enemyWidth = 75;
-// const enemyHeight = 20;
-// const enemyPadding = 20;
-// const enemyOffsetTop = 10;
-// const enemyOffsetLeft = 20;
-// TODO: add score
-// TODO: add lives
-
-// const enemyRowCount = 3;
-// const enemyColumnCount = 5;
-
-// const enemies = [];
-// for (let i = 0; i < enemyRowCount; i++) {
-//   enemies[i] = [];
-//   for (let j = 0; j < enemyColumnCount; j++) {
-//     enemies[i][j] = { x: 0, y: 0, status: 1 };
-//   }
-// }
 
 // function collisionDetection(x, y) {
 //   for (let i = 0; i < enemyRowCount; i++) {
@@ -100,34 +109,4 @@ init();
 //       }
 //     }
 //   }
-// }
-
-// function draw() {
-
-// ctx.drawImage(
-//   player.playerImg.src,
-//   player.playerX,
-//   canvas.height - player.height - 10
-// );
-
-// ctx.drawImage(
-//   player.Image.imgSrc,
-//   player.playerX,
-//   canvas.height - player.height - 10
-// );
-
-// for (let i = 0; i < enemyRowCount; i++) {
-//   for (let j = 0; j < enemyColumnCount; j++) {
-//     if (enemies[i][j].status === 1) {
-//       const enemyX =
-//         j * (enemyWidth + enemyPadding) + enemyOffsetLeft;
-//       const enemyY =
-//         i * (enemyHeight + enemyPadding) + enemyOffsetTop;
-//       enemies[i][j].x = enemyX;
-//       enemies[i][j].y = enemyY;
-//       ctx.drawImage(enemy, enemyX, enemyY);
-//     }
-//   }
-// }
-
 // }
