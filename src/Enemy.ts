@@ -1,3 +1,5 @@
+import { ENEMY_WIDTH, ENEMY_HEIGHT } from './consts.js';
+
 export default class Enemy {
   x: number;
   y: number;
@@ -5,7 +7,6 @@ export default class Enemy {
   enemyImg: HTMLImageElement;
   width: number;
   height: number;
-  padding: number;
 
   constructor(x: number, y: number) {
     this.x = x;
@@ -13,9 +14,8 @@ export default class Enemy {
     this.speed = 0.3;
     this.enemyImg = new Image();
     this.enemyImg.src = 'public/images/green.png';
-    this.width = 40;
-    this.height = 32;
-    this.padding = 20;
+    this.width = ENEMY_WIDTH;
+    this.height = ENEMY_HEIGHT;
   }
 
   draw(ctx: CanvasRenderingContext2D) {

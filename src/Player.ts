@@ -1,5 +1,6 @@
-import Bullet from './Bullet';
-import EnemyController from './EnemyController';
+import Bullet from './Bullet.js';
+import { PLAYER_WIDTH, PLAYER_HEIGHT } from './consts.js';
+import EnemyController from './EnemyController.js';
 
 export default class Player {
   score: number;
@@ -17,8 +18,8 @@ export default class Player {
   constructor(initialX: number, enemyController: EnemyController) {
     this.score = 0;
     this.lives = 3;
-    this.width = 60;
-    this.height = 30;
+    this.width = PLAYER_WIDTH;
+    this.height = PLAYER_HEIGHT;
     this.x = initialX;
     this.y = 280;
     this.image = new Image();

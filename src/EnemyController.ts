@@ -6,17 +6,17 @@ export default class EnemyController {
   enemyOffsetTop: number;
   enemyOffsetLeft: number;
   enemyRowCount: number;
-  enemyColumnCount: number;
   enemies: Enemy[];
   direction: number;
   bullets: EnemyBullet[];
   timeSinceLastBullet: number;
+  paddingY: number;
 
   constructor() {
-    this.enemyOffsetTop = 10;
+    this.enemyOffsetTop = 40;
     this.enemyOffsetLeft = 20;
+    this.paddingY = 40;
     this.enemyRowCount = 3;
-    this.enemyColumnCount = 5;
     this.enemies = this.createEnemies();
     this.direction = 0;
     this.bullets = [];
@@ -25,12 +25,12 @@ export default class EnemyController {
 
   createEnemies() {
     let aliens = [];
-    let y = 20;
+
     for (let i = 0; i < this.enemyRowCount; i++) {
-      for (let x = 25; x < 480 - 75; x += 90) {
-        aliens.push(new Enemy(x, y));
+      for (let x = this.enemyOffsetLeft; x < 480 - 75; x += 90) {
+        aliens.push(new Enemy(x, this.enemyOffsetTop));
       }
-      y += 40;
+      this.enemyOffsetTop += this.paddingY;
     }
     return aliens;
   }
@@ -123,7 +123,7 @@ export default class EnemyController {
 
   moveAlienDown() {
     for (let alien of this.enemies) {
-      alien.y += 0.1;
+      alien.y += 10;
     }
   }
 
@@ -152,7 +152,7 @@ export default class EnemyController {
 
   makeABottomAlienShoot(bottomAliens: Enemy[]) {
     let randNum = Math.floor(Math.random() * bottomAliens.length);
-    console.log(randNum);
+    // console.log(randNum);
     let shootingAlien = bottomAliens[randNum];
 
     let bullet = new EnemyBullet(
