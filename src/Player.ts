@@ -45,6 +45,12 @@ export default class Player {
     ctx.fillText(this.score.toString(), 10, 40);
   }
 
+  drawLives(ctx: CanvasRenderingContext2D) {
+    ctx.font = '48px serif';
+    ctx.fillStyle = 'red';
+    ctx.fillText(this.lives.toString(), 420, 40);
+  }
+
   drawBullets(ctx: CanvasRenderingContext2D) {
     for (let i = this.bullets.length - 1; i >= 0; i--) {
       let bullet = this.bullets[i];
