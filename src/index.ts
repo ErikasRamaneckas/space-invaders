@@ -1,7 +1,6 @@
 import Player from './Player.js';
 import PlayerController from './PlayerController.js';
 import InputHandler from './InputHandler.js';
-import Enemy from './Enemy.js';
 import EnemyController from './EnemyController.js';
 
 const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
