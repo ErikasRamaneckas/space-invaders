@@ -54,6 +54,11 @@ function draw() {
 
     player.drawScore(ctx);
     player.drawLives(ctx);
+
+    if (player.lives === 0 || player.score === 15) {
+      document.location.reload();
+    }
+
     requestAnimationFrame(draw);
   }
 }

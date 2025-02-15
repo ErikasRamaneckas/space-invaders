@@ -53,7 +53,7 @@ export default class EnemyController {
       }
     }
     for (let i = this.bullets.length - 1; i >= 0; i--) {
-      this.bullets[i].y += 2;
+      this.bullets[i].y += 1;
       if (
         this.bullets[i].x > player.x &&
         this.bullets[i].x < player.x + player.width &&
@@ -73,7 +73,7 @@ export default class EnemyController {
       this.moveAlienDown();
     }
 
-    if (this.timeSinceLastBullet >= 40) {
+    if (this.timeSinceLastBullet >= 80) {
       let bottomAliens: Enemy[] = this.getBottomAliens();
 
       if (bottomAliens.length) {
