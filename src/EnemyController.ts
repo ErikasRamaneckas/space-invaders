@@ -151,8 +151,9 @@ export default class EnemyController {
   }
 
   makeABottomAlienShoot(bottomAliens: Enemy[]) {
-    // let shootingAlien = random(bottomAliens);
-    let shootingAlien = bottomAliens[2];
+    let randNum = Math.floor(Math.random() * bottomAliens.length);
+    console.log(randNum);
+    let shootingAlien = bottomAliens[randNum];
 
     let bullet = new EnemyBullet(
       shootingAlien.x + 10,
@@ -161,7 +162,7 @@ export default class EnemyController {
 
     this.bullets.push(bullet);
     this.timeSinceLastBullet = 0;
-    console.log('shoot');
+    // console.log('shoot');
   }
 
   getAllXPositions() {
