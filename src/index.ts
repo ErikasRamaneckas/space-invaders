@@ -45,6 +45,7 @@ function draw() {
     enemyController.update();
     enemyController.draw(ctx);
 
+    player.drawScore(ctx);
     requestAnimationFrame(draw);
   }
 }

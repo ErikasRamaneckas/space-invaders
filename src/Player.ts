@@ -2,6 +2,7 @@ import Bullet from './Bullet';
 import EnemyController from './EnemyController';
 
 export default class Player {
+  score: number;
   width: number;
   height: number;
   x: number;
@@ -13,6 +14,7 @@ export default class Player {
   enemyController: EnemyController;
 
   constructor(initialX: number, enemyController: EnemyController) {
+    this.score = 0;
     this.width = 60;
     this.height = 30;
     this.x = initialX;
@@ -35,6 +37,12 @@ export default class Player {
     );
   }
 
+  drawScore(ctx: CanvasRenderingContext2D) {
+    ctx.font = '48px serif';
+    ctx.fillStyle = 'red';
+    ctx.fillText(this.score.toString(), 10, 40);
+  }
+
   drawBullets(ctx: CanvasRenderingContext2D) {
     for (let i = this.bullets.length - 1; i >= 0; i--) {
       let bullet = this.bullets[i];
@@ -43,6 +51,8 @@ export default class Player {
 
       if (this.enemyController.checkCollision(bullet.x, bullet.y)) {
         this.bullets.splice(i, 1);
+        this.score++;
+        console.log(this.score);
         continue;
       }
 
