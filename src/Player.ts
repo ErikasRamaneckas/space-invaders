@@ -3,6 +3,7 @@ import EnemyController from './EnemyController';
 
 export default class Player {
   score: number;
+  lives: number;
   width: number;
   height: number;
   x: number;
@@ -15,6 +16,7 @@ export default class Player {
 
   constructor(initialX: number, enemyController: EnemyController) {
     this.score = 0;
+    this.lives = 3;
     this.width = 60;
     this.height = 30;
     this.x = initialX;

@@ -1,4 +1,5 @@
 import Enemy from './Enemy.js';
+import Player from './Player.js';
 import EnemyBullet from './EnemyBullet.js';
 
 export default class EnemyController {
@@ -43,7 +44,7 @@ export default class EnemyController {
     }
   }
 
-  update() {
+  update(player: Player) {
     for (let alien of this.enemies) {
       if (this.direction == 0) {
         alien.x += 0.2;
@@ -51,8 +52,19 @@ export default class EnemyController {
         alien.x -= 0.2;
       }
     }
-    for (let bullet of this.bullets) {
-      bullet.y += 2;
+    for (let i = this.bullets.length - 1; i >= 0; i--) {
+      this.bullets[i].y += 2;
+      if (
+        this.bullets[i].x > player.x &&
+        this.bullets[i].x < player.x + player.width &&
+        this.bullets[i].y > player.y &&
+        this.bullets[i].y < player.y + player.height
+      ) {
+        player.lives--;
+
+        this.bullets.splice(i, 1);
+        console.log('Player hit! Lives left:', player.lives);
+      }
     }
 
     // this.updateBullets();
@@ -140,7 +152,7 @@ export default class EnemyController {
 
   makeABottomAlienShoot(bottomAliens: Enemy[]) {
     // let shootingAlien = random(bottomAliens);
-    let shootingAlien = bottomAliens[0];
+    let shootingAlien = bottomAliens[2];
 
     let bullet = new EnemyBullet(
       shootingAlien.x + 10,

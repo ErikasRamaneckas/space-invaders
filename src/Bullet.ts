@@ -1,3 +1,5 @@
+import Player from './Player.js';
+
 export default class Bullet {
   x: number;
   y: number;

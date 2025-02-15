@@ -41,8 +41,8 @@ function draw() {
     playerController.shoot();
     player.drawBullets(ctx);
 
-    enemyController.update();
     enemyController.draw(ctx);
+    enemyController.update(player);
 
     player.drawScore(ctx);
     requestAnimationFrame(draw);
