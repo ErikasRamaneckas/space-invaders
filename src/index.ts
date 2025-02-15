@@ -14,11 +14,11 @@ let enemyController: EnemyController;
 
 function init() {
   if (canvas) {
-    player = new Player((canvas.width - 60) / 2);
-    playerController = new PlayerController(player);
-    inputHandler = new InputHandler(playerController);
     enemyController = new EnemyController();
     enemyController.createEnemies();
+    player = new Player((canvas.width - 60) / 2, enemyController);
+    playerController = new PlayerController(player);
+    inputHandler = new InputHandler(playerController);
     document.addEventListener(
       'keydown',
       (e) => inputHandler.keyDownHandler(e),
@@ -49,21 +49,3 @@ function draw() {
   }
 }
 init();
-
-// function collisionDetection(x, y) {
-//   for (let i = 0; i < enemyRowCount; i++) {
-//     for (let j = 0; i < enemyColumnCount; j++) {
-//       const e = enemies[i][j];
-//       console.log(e.x);
-
-//       if (
-//         x > e.x &&
-//         x < e.x + enemyWidth &&
-//         y > e.y &&
-//         y < e.y + enemyHeight
-//       ) {
-//         e.status = 0;
-//       }
-//     }
-//   }
-// }

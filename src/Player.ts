@@ -1,4 +1,5 @@
 import Bullet from './Bullet';
+import EnemyController from './EnemyController';
 
 export default class Player {
   width: number;
@@ -9,8 +10,9 @@ export default class Player {
   speed: number;
   bullets: Bullet[];
   lastShot: number;
+  enemyController: EnemyController;
 
-  constructor(initialX: number) {
+  constructor(initialX: number, enemyController: EnemyController) {
     this.width = 60;
     this.height = 30;
     this.x = initialX;
@@ -20,6 +22,7 @@ export default class Player {
     this.speed = 4;
     this.bullets = [];
     this.lastShot = 0;
+    this.enemyController = enemyController;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -33,10 +36,17 @@ export default class Player {
   }
 
   drawBullets(ctx: CanvasRenderingContext2D) {
-    for (let i = 0; i < this.bullets.length; i++) {
-      this.bullets[i].y -= 2;
-      this.bullets[i].draw(ctx);
-      if (this.bullets[i].y < 0) {
+    for (let i = this.bullets.length - 1; i >= 0; i--) {
+      let bullet = this.bullets[i];
+      bullet.y -= 30;
+      bullet.draw(ctx);
+
+      if (this.enemyController.checkCollision(bullet.x, bullet.y)) {
+        this.bullets.splice(i, 1);
+        continue;
+      }
+
+      if (bullet.y < 0) {
         this.bullets.splice(i, 1);
       }
     }

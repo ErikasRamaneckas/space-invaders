@@ -5,7 +5,6 @@ export default class EnemyController {
   enemyOffsetLeft: number;
   enemyRowCount: number;
   enemyColumnCount: number;
-  // enemies: Enemy[][];
   enemies: Enemy[];
 
   constructor() {
@@ -38,5 +37,21 @@ export default class EnemyController {
     for (let alien of this.enemies) {
       alien.x += alien.speed;
     }
+  }
+
+  checkCollision(x: number, y: number): boolean {
+    for (let i = this.enemies.length - 1; i >= 0; i--) {
+      let currentAlien = this.enemies[i];
+      if (
+        x > currentAlien.x &&
+        x < currentAlien.x + currentAlien.width &&
+        y > currentAlien.y &&
+        y < currentAlien.y + currentAlien.height
+      ) {
+        this.enemies.splice(i, 1); // Remove the enemy
+        return true; // Only return true when a collision happens
+      }
+    }
+    return false; // Return false if no collisions
   }
 }

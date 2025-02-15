@@ -34,7 +34,7 @@ export default class PlayerController {
       const newBullet = new Bullet(
         this.player.x + this.player.width / 2 - 5,
         320 - this.player.height - 5,
-        5
+        20
       );
       this.player.bullets.push(newBullet);
       this.player.lastShot = Date.now();

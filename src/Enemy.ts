@@ -10,7 +10,7 @@ export default class Enemy {
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
-    this.speed = 0.25;
+    this.speed = 0;
     this.enemyImg = new Image();
     this.enemyImg.src = 'public/images/green.png';
     this.width = 40;
