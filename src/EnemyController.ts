@@ -1,38 +1,45 @@
 import Enemy from './Enemy.js';
 import Player from './Player.js';
 import EnemyBullet from './EnemyBullet.js';
+import { CANVAS_WIDTH } from './consts.js';
 
 export default class EnemyController {
-  enemyOffsetTop: number;
-  enemyOffsetLeft: number;
-  enemyRowCount: number;
+  offsetY: number;
+  offsetX: number;
+  paddingY: number;
+  paddingX: number;
+  rowCount: number;
   enemies: Enemy[];
   direction: number;
   bullets: EnemyBullet[];
   timeSinceLastBullet: number;
-  paddingY: number;
 
   constructor() {
-    this.enemyOffsetTop = 40;
-    this.enemyOffsetLeft = 20;
+    this.offsetY = 40;
+    this.offsetX = 20;
+    this.paddingX = 90;
     this.paddingY = 40;
-    this.enemyRowCount = 3;
+    this.rowCount = 3;
     this.enemies = this.createEnemies();
     this.direction = 0;
     this.bullets = [];
     this.timeSinceLastBullet = 0;
   }
 
-  createEnemies() {
-    let aliens = [];
-
-    for (let i = 0; i < this.enemyRowCount; i++) {
-      for (let x = this.enemyOffsetLeft; x < 480 - 75; x += 90) {
-        aliens.push(new Enemy(x, this.enemyOffsetTop));
+  createEnemies(): Enemy[] {
+    let enemies = [];
+    let y = this.offsetY;
+    for (let i = 0; i < this.rowCount; i++) {
+      for (
+        let x = this.offsetX;
+        x < CANVAS_WIDTH - this.paddingX;
+        x += this.paddingX
+      ) {
+        enemies.push(new Enemy(x, y));
       }
-      this.enemyOffsetTop += this.paddingY;
+      y += this.paddingY;
     }
-    return aliens;
+    return enemies;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -47,13 +54,17 @@ export default class EnemyController {
   update(player: Player) {
     for (let alien of this.enemies) {
       if (this.direction == 0) {
-        alien.x += 0.2;
+        alien.x += alien.speed;
       } else if (this.direction == 1) {
-        alien.x -= 0.2;
+        alien.x -= alien.speed;
       }
     }
+    if (this.hasChangedDirection()) {
+      this.moveAlienDown();
+    }
+
     for (let i = this.bullets.length - 1; i >= 0; i--) {
-      this.bullets[i].y += 1;
+      this.bullets[i].update();
       if (
         this.bullets[i].x > player.x &&
         this.bullets[i].x < player.x + player.width &&
@@ -63,14 +74,7 @@ export default class EnemyController {
         player.lives--;
 
         this.bullets.splice(i, 1);
-        console.log('Player hit! Lives left:', player.lives);
       }
-    }
-
-    // this.updateBullets();
-
-    if (this.hasChangedDirection()) {
-      this.moveAlienDown();
     }
 
     if (this.timeSinceLastBullet >= 80) {
@@ -80,17 +84,8 @@ export default class EnemyController {
         this.makeABottomAlienShoot(bottomAliens);
       }
     }
-
     this.timeSinceLastBullet++;
   }
-
-  // updateBullets() {
-  //   for (let i = this.bullets.length - 1; i >= 0; i--) {
-  //     this.bullets[i].y += 2;
-
-  //     this.bullets.splice(i, 1);
-  //   }
-  // }
 
   checkCollision(x: number, y: number): boolean {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
@@ -152,7 +147,6 @@ export default class EnemyController {
 
   makeABottomAlienShoot(bottomAliens: Enemy[]) {
     let randNum = Math.floor(Math.random() * bottomAliens.length);
-    // console.log(randNum);
     let shootingAlien = bottomAliens[randNum];
 
     let bullet = new EnemyBullet(
@@ -162,7 +156,6 @@ export default class EnemyController {
 
     this.bullets.push(bullet);
     this.timeSinceLastBullet = 0;
-    // console.log('shoot');
   }
 
   getAllXPositions() {

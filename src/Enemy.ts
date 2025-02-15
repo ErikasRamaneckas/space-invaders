@@ -18,6 +18,10 @@ export default class Enemy {
     this.height = ENEMY_HEIGHT;
   }
 
+  update() {
+    //
+  }
+
   draw(ctx: CanvasRenderingContext2D) {
     ctx.drawImage(
       this.enemyImg,

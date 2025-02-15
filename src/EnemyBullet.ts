@@ -6,6 +6,6 @@ export default class EnemyBullet extends Bullet {
   }
 
   update() {
-    this.y += 2;
+    this.y += 1;
   }
 }
