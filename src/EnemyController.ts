@@ -6,6 +6,7 @@ export default class EnemyController {
   enemyRowCount: number;
   enemyColumnCount: number;
   enemies: Enemy[];
+  direction: number;
 
   constructor() {
     this.enemyOffsetTop = 10;
@@ -13,6 +14,7 @@ export default class EnemyController {
     this.enemyRowCount = 3;
     this.enemyColumnCount = 5;
     this.enemies = this.createEnemies();
+    this.direction = 0;
   }
 
   createEnemies() {
@@ -35,7 +37,15 @@ export default class EnemyController {
 
   update() {
     for (let alien of this.enemies) {
-      alien.x += alien.speed;
+      if (this.direction === 0) {
+        alien.x += alien.speed;
+      } else if (this.direction === 1) {
+        alien.x -= alien.speed;
+      }
+
+      if (this.hasChangedDirection()) {
+        this.moveAlienDown();
+      }
     }
   }
 
@@ -48,10 +58,29 @@ export default class EnemyController {
         y > currentAlien.y &&
         y < currentAlien.y + currentAlien.height
       ) {
-        this.enemies.splice(i, 1); // Remove the enemy
-        return true; // Only return true when a collision happens
+        this.enemies.splice(i, 1);
+        return true;
       }
     }
-    return false; // Return false if no collisions
+    return false;
+  }
+
+  hasChangedDirection() {
+    for (let alien of this.enemies) {
+      if (alien.x >= 480 - 40) {
+        this.direction = 1;
+        return true;
+      } else if (alien.x <= 20) {
+        this.direction = 0;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  moveAlienDown() {
+    for (let alien of this.enemies) {
+      alien.y += 0.1;
+    }
   }
 }
