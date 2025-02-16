@@ -2,6 +2,7 @@ import Player from './Player.js';
 import PlayerController from './PlayerController.js';
 import InputHandler from './InputHandler.js';
 import EnemyController from './EnemyController.js';
+import GameUI from './GameUI.js';
 import {
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
@@ -16,6 +17,7 @@ let player: Player;
 let playerController: PlayerController;
 let inputHandler: InputHandler;
 let enemyController: EnemyController;
+let gameUI: GameUI;
 
 function init() {
   if (canvas) {
@@ -27,6 +29,8 @@ function init() {
     );
     playerController = new PlayerController(player);
     inputHandler = new InputHandler(playerController);
+    gameUI = new GameUI(player.score, player.lives);
+
     document.addEventListener(
       'keydown',
       (e) => inputHandler.keyDownHandler(e),
@@ -45,8 +49,8 @@ function draw() {
   if (ctx !== null) {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-    player.drawScore(ctx);
-    player.drawLives(ctx);
+    gameUI.drawScore(ctx);
+    gameUI.drawLives(ctx);
     player.draw(ctx);
     playerController.move();
     playerController.shoot();
