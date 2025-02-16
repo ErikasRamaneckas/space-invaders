@@ -55,7 +55,7 @@ export default class Player {
   drawBullets(ctx: CanvasRenderingContext2D) {
     for (let i = this.bullets.length - 1; i >= 0; i--) {
       let bullet = this.bullets[i];
-      bullet.y -= 30;
+      bullet.update();
       bullet.draw(ctx);
 
       if (this.enemyController.checkCollision(bullet.x, bullet.y)) {

@@ -44,6 +44,8 @@ function draw() {
   if (ctx !== null) {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
+    player.drawScore(ctx);
+    player.drawLives(ctx);
     player.draw(ctx);
     playerController.move(CANVAS_WIDTH);
     playerController.shoot();
@@ -51,9 +53,6 @@ function draw() {
 
     enemyController.draw(ctx);
     enemyController.update(player);
-
-    player.drawScore(ctx);
-    player.drawLives(ctx);
 
     if (player.lives === 0 || player.score === 15) {
       document.location.reload();

@@ -29,6 +29,7 @@ export default class EnemyController {
   createEnemies(): Enemy[] {
     let enemies = [];
     let y = this.offsetY;
+
     for (let i = 0; i < this.rowCount; i++) {
       for (
         let x = this.offsetX;
@@ -39,24 +40,26 @@ export default class EnemyController {
       }
       y += this.paddingY;
     }
+
     return enemies;
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    for (let alien of this.enemies) {
-      alien.draw(ctx);
+  draw(ctx: CanvasRenderingContext2D): void {
+    for (let enemy of this.enemies) {
+      enemy.draw(ctx);
     }
+
     for (let bullet of this.bullets) {
       bullet.draw(ctx);
     }
   }
 
-  update(player: Player) {
-    for (let alien of this.enemies) {
+  update(player: Player): void {
+    for (let enemy of this.enemies) {
       if (this.direction == 0) {
-        alien.x += alien.speed;
+        enemy.x += enemy.speed;
       } else if (this.direction == 1) {
-        alien.x -= alien.speed;
+        enemy.x -= enemy.speed;
       }
     }
     if (this.hasChangedDirection()) {
@@ -151,7 +154,9 @@ export default class EnemyController {
 
     let bullet = new EnemyBullet(
       shootingAlien.x + 10,
-      shootingAlien.y + 10
+      shootingAlien.y + 10,
+      1,
+      'red'
     );
 
     this.bullets.push(bullet);

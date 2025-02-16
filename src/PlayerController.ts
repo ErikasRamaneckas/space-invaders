@@ -1,5 +1,5 @@
 import Player from './Player.js';
-import Bullet from './Bullet.js';
+import PlayerBullet from './PlayerBullet.js';
 
 export default class PlayerController {
   player: Player;
@@ -31,9 +31,11 @@ export default class PlayerController {
       this.spacePressed &&
       Date.now() - this.player.lastShot > 500
     ) {
-      const newBullet = new Bullet(
+      const newBullet = new PlayerBullet(
         this.player.x + this.player.width / 2 - 5,
-        320 - this.player.height - 5
+        320 - this.player.height - 5,
+        30,
+        'gold'
       );
       this.player.bullets.push(newBullet);
       this.player.lastShot = Date.now();
