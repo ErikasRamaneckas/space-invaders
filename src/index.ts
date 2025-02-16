@@ -8,6 +8,7 @@ import {
   PLAYER_WIDTH,
 } from './consts.js';
 
+createCanvas();
 const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
@@ -62,3 +63,13 @@ function draw() {
   }
 }
 init();
+
+function createCanvas(): void {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'canvas';
+
+  canvas.width = CANVAS_WIDTH;
+  canvas.height = CANVAS_HEIGHT;
+
+  document.body.appendChild(canvas);
+}
