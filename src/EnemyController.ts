@@ -1,7 +1,11 @@
 import Enemy from './Enemy.js';
 import Player from './Player.js';
 import EnemyBullet from './EnemyBullet.js';
-import { CANVAS_WIDTH } from './consts.js';
+import {
+  BULLET_HEIGHT,
+  BULLET_WIDTH,
+  CANVAS_WIDTH,
+} from './consts.js';
 
 export default class EnemyController {
   offsetY: number;
@@ -153,10 +157,8 @@ export default class EnemyController {
     let shootingAlien = bottomAliens[randNum];
 
     let bullet = new EnemyBullet(
-      shootingAlien.x + 10,
-      shootingAlien.y + 10,
-      1,
-      'red'
+      shootingAlien.x + shootingAlien.width / 2 - BULLET_WIDTH / 2,
+      shootingAlien.y + BULLET_HEIGHT
     );
 
     this.bullets.push(bullet);

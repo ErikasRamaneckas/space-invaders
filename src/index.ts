@@ -47,7 +47,7 @@ function draw() {
     player.drawScore(ctx);
     player.drawLives(ctx);
     player.draw(ctx);
-    playerController.move(CANVAS_WIDTH);
+    playerController.move();
     playerController.shoot();
     player.drawBullets(ctx);
 

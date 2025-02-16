@@ -1,5 +1,11 @@
 import Player from './Player.js';
 import PlayerBullet from './PlayerBullet.js';
+import {
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
+  BULLET_WIDTH,
+  BULLET_HEIGHT,
+} from './consts.js';
 
 export default class PlayerController {
   player: Player;
@@ -14,10 +20,10 @@ export default class PlayerController {
     this.spacePressed = false;
   }
 
-  move(canvasWidth: number) {
+  move() {
     if (
       this.rightPressed &&
-      this.player.x < canvasWidth - this.player.width - 2
+      this.player.x < CANVAS_WIDTH - this.player.width - 2
     ) {
       this.player.x += this.player.speed;
     }
@@ -32,10 +38,8 @@ export default class PlayerController {
       Date.now() - this.player.lastShot > 500
     ) {
       const newBullet = new PlayerBullet(
-        this.player.x + this.player.width / 2 - 5,
-        320 - this.player.height - 5,
-        30,
-        'gold'
+        this.player.x + this.player.width / 2 - BULLET_WIDTH / 2,
+        CANVAS_HEIGHT - this.player.height - BULLET_HEIGHT
       );
       this.player.bullets.push(newBullet);
       this.player.lastShot = Date.now();

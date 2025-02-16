@@ -1,3 +1,5 @@
+import { BULLET_HEIGHT, BULLET_WIDTH } from './consts.js';
+
 export default abstract class Bullet {
   x: number;
   y: number;
@@ -10,8 +12,8 @@ export default abstract class Bullet {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.width = 7;
-    this.height = 20;
+    this.width = BULLET_WIDTH;
+    this.height = BULLET_HEIGHT;
     this.color = color;
   }
 
