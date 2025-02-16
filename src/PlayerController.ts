@@ -12,22 +12,25 @@ export default class PlayerController {
   leftPressed: boolean;
   rightPressed: boolean;
   spacePressed: boolean;
+  shootingCooldown: number;
 
   constructor(player: Player) {
     this.player = player;
     this.rightPressed = false;
     this.leftPressed = false;
     this.spacePressed = false;
+    this.shootingCooldown = 500;
   }
 
   move() {
     if (
       this.rightPressed &&
-      this.player.x < CANVAS_WIDTH - this.player.width - 2
+      this.player.x <
+        CANVAS_WIDTH - this.player.width - this.player.paddingX
     ) {
       this.player.x += this.player.speed;
     }
-    if (this.leftPressed && this.player.x > 2) {
+    if (this.leftPressed && this.player.x > this.player.paddingX) {
       this.player.x -= this.player.speed;
     }
   }
@@ -35,7 +38,7 @@ export default class PlayerController {
   shoot() {
     if (
       this.spacePressed &&
-      Date.now() - this.player.lastShot > 500
+      Date.now() - this.player.lastShot > this.shootingCooldown
     ) {
       const newBullet = new PlayerBullet(
         this.player.x + this.player.width / 2 - BULLET_WIDTH / 2,

@@ -1,5 +1,9 @@
 import Bullet from './Bullet.js';
-import { PLAYER_WIDTH, PLAYER_HEIGHT } from './consts.js';
+import {
+  PLAYER_WIDTH,
+  PLAYER_HEIGHT,
+  CANVAS_HEIGHT,
+} from './consts.js';
 import EnemyController from './EnemyController.js';
 
 export default class Player {
@@ -9,6 +13,8 @@ export default class Player {
   height: number;
   x: number;
   y: number;
+  paddingX: number;
+  paddingY: number;
   image: HTMLImageElement;
   speed: number;
   bullets: Bullet[];
@@ -20,8 +26,10 @@ export default class Player {
     this.lives = 3;
     this.width = PLAYER_WIDTH;
     this.height = PLAYER_HEIGHT;
+    this.paddingX = 2;
+    this.paddingY = 10;
     this.x = initialX;
-    this.y = 280;
+    this.y = CANVAS_HEIGHT - this.height - this.paddingY;
     this.image = new Image();
     this.image.src = '/public/images/player.png';
     this.speed = 4;
@@ -61,8 +69,6 @@ export default class Player {
       if (this.enemyController.checkCollision(bullet.x, bullet.y)) {
         this.bullets.splice(i, 1);
         this.score++;
-        console.log(this.score);
-        continue;
       }
 
       if (bullet.y < 0) {
