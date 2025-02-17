@@ -5,7 +5,9 @@ import {
   BULLET_HEIGHT,
   BULLET_WIDTH,
   CANVAS_WIDTH,
+  ENEMY_WIDTH,
 } from './consts.js';
+import { Direction } from './Direction.js';
 
 export default class EnemyController {
   offsetY: number;
@@ -17,6 +19,7 @@ export default class EnemyController {
   direction: number;
   bullets: EnemyBullet[];
   timeSinceLastBullet: number;
+  shootingCooldown: number;
 
   constructor() {
     this.offsetY = 40;
@@ -28,6 +31,7 @@ export default class EnemyController {
     this.direction = 0;
     this.bullets = [];
     this.timeSinceLastBullet = 0;
+    this.shootingCooldown = 80;
   }
 
   createEnemies(): Enemy[] {
@@ -58,20 +62,24 @@ export default class EnemyController {
     }
   }
 
-  update(player: Player): void {
+  update(): void {
     for (let enemy of this.enemies) {
-      if (this.direction == 0) {
+      if (this.direction === Direction.Right) {
         enemy.x += enemy.speed;
-      } else if (this.direction == 1) {
+      } else if (this.direction === Direction.Left) {
         enemy.x -= enemy.speed;
       }
     }
-    if (this.hasChangedDirection()) {
-      this.moveAlienDown();
-    }
 
+    if (this.hasChangedDirection()) {
+      this.moveEnemyDown();
+    }
+  }
+
+  updateBullets(player: Player): void {
     for (let i = this.bullets.length - 1; i >= 0; i--) {
       this.bullets[i].update();
+
       if (
         this.bullets[i].x > player.x &&
         this.bullets[i].x < player.x + player.width &&
@@ -83,8 +91,7 @@ export default class EnemyController {
         this.bullets.splice(i, 1);
       }
     }
-
-    if (this.timeSinceLastBullet >= 80) {
+    if (this.timeSinceLastBullet >= this.shootingCooldown) {
       let bottomAliens: Enemy[] = this.getBottomAliens();
 
       if (bottomAliens.length) {
@@ -112,18 +119,18 @@ export default class EnemyController {
 
   hasChangedDirection() {
     for (let alien of this.enemies) {
-      if (alien.x >= 480 - 40) {
-        this.direction = 1;
+      if (alien.x >= CANVAS_WIDTH - ENEMY_WIDTH - 2) {
+        this.direction = Direction.Left;
         return true;
-      } else if (alien.x <= 20) {
-        this.direction = 0;
+      } else if (alien.x <= 2) {
+        this.direction = Direction.Right;
         return true;
       }
     }
     return false;
   }
 
-  moveAlienDown() {
+  moveEnemyDown() {
     for (let alien of this.enemies) {
       alien.y += 10;
     }

@@ -57,7 +57,8 @@ function draw() {
     player.drawBullets(ctx);
 
     enemyController.draw(ctx);
-    enemyController.update(player);
+    enemyController.update();
+    enemyController.updateBullets(player);
 
     if (player.lives === 0 || player.score === 15) {
       document.location.reload();
