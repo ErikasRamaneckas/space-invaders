@@ -27,7 +27,7 @@ export default class Player {
     this.width = PLAYER_WIDTH;
     this.height = PLAYER_HEIGHT;
     this.paddingX = 2;
-    this.paddingY = 10;
+    this.paddingY = 50;
     this.x = initialX;
     this.y = CANVAS_HEIGHT - this.height - this.paddingY;
     this.image = new Image();

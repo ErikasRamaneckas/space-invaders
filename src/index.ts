@@ -29,7 +29,7 @@ function init() {
     );
     playerController = new PlayerController(player);
     inputHandler = new InputHandler(playerController);
-    gameUI = new GameUI(player.score, player.lives);
+    gameUI = new GameUI();
 
     document.addEventListener(
       'keydown',
@@ -48,6 +48,12 @@ function init() {
 function draw() {
   if (ctx !== null) {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.beginPath();
+    ctx.moveTo(0, CANVAS_HEIGHT - 40);
+    ctx.lineTo(CANVAS_WIDTH, CANVAS_HEIGHT - 40);
+    ctx.strokeStyle = 'limegreen';
+    ctx.lineWidth = 3;
+    ctx.stroke();
 
     gameUI.drawScore(ctx, player);
     gameUI.drawLives(ctx, player);
