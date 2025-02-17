@@ -1,3 +1,5 @@
+import Player from './Player.js';
+
 export default class GameUI {
   score: number;
   lives: number;
@@ -11,15 +13,15 @@ export default class GameUI {
     this.fontColor = 'white';
   }
 
-  drawScore(ctx: CanvasRenderingContext2D) {
+  drawScore(ctx: CanvasRenderingContext2D, player: Player) {
     ctx.font = this.fontStyle;
     ctx.fillStyle = this.fontColor;
-    ctx.fillText(this.score.toString(), 10, 40);
+    ctx.fillText(player.score.toString(), 10, 40);
   }
 
-  drawLives(ctx: CanvasRenderingContext2D) {
+  drawLives(ctx: CanvasRenderingContext2D, player: Player) {
     ctx.font = this.fontStyle;
     ctx.fillStyle = this.fontColor;
-    ctx.fillText(this.lives.toString(), 420, 40);
+    ctx.fillText(player.lives.toString(), 420, 40);
   }
 }

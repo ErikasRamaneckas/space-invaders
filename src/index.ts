@@ -49,8 +49,8 @@ function draw() {
   if (ctx !== null) {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-    gameUI.drawScore(ctx);
-    gameUI.drawLives(ctx);
+    gameUI.drawScore(ctx, player);
+    gameUI.drawLives(ctx, player);
     player.draw(ctx);
     playerController.move();
     playerController.shoot();
