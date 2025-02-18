@@ -4,6 +4,7 @@ import EnemyBullet from './EnemyBullet.js';
 import {
   BULLET_HEIGHT,
   BULLET_WIDTH,
+  CANVAS_HEIGHT,
   CANVAS_WIDTH,
   ENEMY_WIDTH,
 } from './consts.js';
@@ -93,6 +94,9 @@ export default class EnemyController {
 
         this.bullets.splice(i, 1);
       }
+      if (this.bullets[i].y > CANVAS_HEIGHT - 40 - 20) {
+        this.bullets.splice(i, 1);
+      }
     }
     if (this.timeSinceLastBullet >= this.shootingCooldown) {
       let bottomEnemies: Enemy[] = this.getBottomEnemies();
@@ -175,10 +179,10 @@ export default class EnemyController {
     this.timeSinceLastBullet = 0;
   }
 
-  getAllXPositions() {
-    let allXPositions = new Set();
+  getAllXPositions(): number[] {
+    const allXPositions = [];
     for (let enemy of this.enemies) {
-      allXPositions.add(enemy.x);
+      allXPositions.push(enemy.x);
     }
     return allXPositions;
   }
