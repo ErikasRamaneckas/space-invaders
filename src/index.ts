@@ -66,13 +66,16 @@ function draw() {
     enemyController.update();
     enemyController.updateBullets(player);
 
-    if (player.lives === 0 || player.score === 15) {
-      document.location.reload();
+    if (player.lives === 0) {
+      drawMessage(ctx, 'You lose');
+    } else if (player.score === 15) {
+      drawMessage(ctx, 'You win');
+    } else {
+      requestAnimationFrame(draw);
     }
-
-    requestAnimationFrame(draw);
   }
 }
+
 init();
 
 function createCanvas(): void {
@@ -83,4 +86,17 @@ function createCanvas(): void {
   canvas.height = CANVAS_HEIGHT;
 
   document.body.appendChild(canvas);
+}
+
+function drawMessage(
+  ctx: CanvasRenderingContext2D,
+  text: string
+): void {
+  ctx.font = '32px Press Start 2P, sans-serif';
+  ctx.fillStyle = 'white';
+  ctx.textAlign = 'center';
+  ctx.fillText(text, CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+  setTimeout(() => {
+    document.location.reload();
+  }, 3000);
 }
