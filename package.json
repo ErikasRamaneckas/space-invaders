@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "homepage": "https://erikasramaneckas.github.io/space-invaders/",
   "scripts": {
+    "build": "tsc",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,5 +16,8 @@
   "description": "",
   "dependencies": {
     "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
