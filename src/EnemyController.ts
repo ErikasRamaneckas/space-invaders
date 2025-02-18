@@ -149,17 +149,17 @@ export default class EnemyController {
 
     for (let enemyAtX of allXPositions) {
       let bestYPosition = 0;
-      let lowestAlien: Enemy | null = null;
+      let lowestEnemy: Enemy | null = null;
 
-      for (let alien of this.enemies) {
-        if (alien.x === enemyAtX && alien.y > bestYPosition) {
-          bestYPosition = alien.y;
-          lowestAlien = alien;
+      for (let enemy of this.enemies) {
+        if (enemy.x === enemyAtX && enemy.y > bestYPosition) {
+          bestYPosition = enemy.y;
+          lowestEnemy = enemy;
         }
       }
 
-      if (lowestAlien) {
-        enemiesAtTheBottom.push(lowestAlien);
+      if (lowestEnemy) {
+        enemiesAtTheBottom.push(lowestEnemy);
       }
     }
 
