@@ -1,4 +1,4 @@
-import PlayerController from './PlayerController';
+import PlayerController from './PlayerController.js';
 
 export default class InputHandler {
   playerController: PlayerController;
