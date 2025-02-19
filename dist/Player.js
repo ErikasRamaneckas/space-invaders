@@ -23,7 +23,7 @@ export default class Player {
         this.x = initialX;
         this.y = CANVAS_HEIGHT - this.height - this.paddingY;
         this.image = new Image();
-        this.image.src = 'public/images/player.png';
+        this.image.src = 'assets/images/player.png';
         this.speed = 4;
         this.bullets = [];
         this.lastShot = 0;
