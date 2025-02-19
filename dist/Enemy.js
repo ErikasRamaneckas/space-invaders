@@ -11,8 +11,9 @@ export default class Enemy {
         this.y = y;
         this.speed = 0.3;
         this.enemyImg = new Image();
-        this.enemyImg.src =
-            'https://erikasramaneckas.github.io/space-invaders/red.png';
+        // this.enemyImg.src =
+        //   'https://erikasramaneckas.github.io/space-invaders/red.png';
+        this.enemyImg.src = 'red.png';
         this.width = ENEMY_WIDTH;
         this.height = ENEMY_HEIGHT;
     }
