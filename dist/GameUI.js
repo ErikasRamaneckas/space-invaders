@@ -7,7 +7,8 @@ export default class GameUI {
         this.fontStyle = '32px "Press Start 2P", sans-serif';
         this.fontColor = 'white';
         this.image = new Image();
-        this.image.src = '../player.png';
+        this.image.src =
+            'https://erikasramaneckas.github.io/space-invaders/player.png';
     }
     drawScore(ctx, player) {
         ctx.font = this.fontStyle;
