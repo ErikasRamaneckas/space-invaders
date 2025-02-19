@@ -11,7 +11,7 @@ export default class Enemy {
         this.y = y;
         this.speed = 0.3;
         this.enemyImg = new Image();
-        this.enemyImg.src = 'assets/images/red.png';
+        this.enemyImg.src = './images/red.png';
         this.width = ENEMY_WIDTH;
         this.height = ENEMY_HEIGHT;
     }

@@ -7,7 +7,7 @@ export default class GameUI {
         this.fontStyle = '32px "Press Start 2P", sans-serif';
         this.fontColor = 'white';
         this.image = new Image();
-        this.image.src = 'assets/images/player.png';
+        this.image.src = './images/player.png';
     }
     drawScore(ctx, player) {
         ctx.font = this.fontStyle;
