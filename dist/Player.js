@@ -24,7 +24,7 @@ export default class Player {
         this.y = CANVAS_HEIGHT - this.height - this.paddingY;
         this.image = new Image();
         this.image.src =
-            'https://erikasramaneckas.github.io/space-invaders/player.png';
+            'https://erikasramaneckas.github.io/space-invaders/assets/images/player.png';
         this.speed = 4;
         this.bullets = [];
         this.lastShot = 0;
