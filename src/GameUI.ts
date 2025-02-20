@@ -1,9 +1,4 @@
-import {
-  CANVAS_HEIGHT,
-  CANVAS_WIDTH,
-  PLAYER_HEIGHT,
-  PLAYER_WIDTH,
-} from './consts.js';
+import { PLAYER_HEIGHT, PLAYER_WIDTH } from './consts.js';
 import Player from './Player.js';
 
 export default class GameUI {
