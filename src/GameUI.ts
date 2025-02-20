@@ -16,7 +16,7 @@ export default class GameUI {
     this.fontColor = 'white';
     this.image = new Image();
     this.image.src =
-      'https://erikasramaneckas.github.io/space-invaders/player.png';
+      'https://erikasramaneckas.github.io/space-invaders/assets/images/player.png';
   }
 
   drawScore(ctx: CanvasRenderingContext2D, player: Player) {
